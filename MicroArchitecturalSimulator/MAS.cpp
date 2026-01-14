@@ -163,12 +163,30 @@ int main()
      reset_cpu(cpu);
      load_program("program.hex");
 
+     ofstream log("cpu_log.txt");
+
      bool running = true;
+     int cycle = 0;
 
      while (running)
      {
+          log << "Cycle " << cycle++ << "  |  ";
+
           generate_control_signals(cpu, state, ctrl);
           apply_control_signals(cpu, ctrl);
+
+          log << "PC:" << int(cpu.PC)
+              << " IR:" << hex << setw(2) << setfill('0') << int(cpu.IR)
+              << dec
+              << " ACC:" << int(cpu.ACC)
+              << " R0:" << int(cpu.R[0])
+              << " R1:" << int(cpu.R[1])
+              << " R2:" << int(cpu.R[2])
+              << " R3:" << int(cpu.R[3])
+              << " Z:" << int(cpu.Z)
+              << " C:" << int(cpu.C)
+              << " State:" << state
+              << "\n";
 
           switch (state)
           {
@@ -191,10 +209,10 @@ int main()
                running = false;
                break;
           }
-
-          cout << "PC:" << int(cpu.PC) << " ACC:" << int(cpu.ACC)
-               << " Z:" << int(cpu.Z) << " C:" << int(cpu.C) << endl;
      }
 
-     cout << "\nProgram finished.\n";
+     log << "\nProgram finished.\n";
+     log.close();
+
+     cout << "Execution complete. Log written to cpu_log.txt\n";
 }

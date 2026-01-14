@@ -1,0 +1,19 @@
+Cycle 0  |  PC:1 IR:35 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:0
+Cycle 1  |  PC:1 IR:35 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:1
+Cycle 2  |  PC:1 IR:35 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:2
+Cycle 3  |  PC:1 IR:35 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:3
+Cycle 4  |  PC:2 IR:41 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:0
+Cycle 5  |  PC:2 IR:41 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:1
+Cycle 6  |  PC:2 IR:41 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:2
+Cycle 7  |  PC:2 IR:41 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:3
+Cycle 8  |  PC:3 IR:62 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:0
+Cycle 9  |  PC:3 IR:62 ACC:5 R0:0 R1:0 R2:0 R3:0 Z:0 C:0 State:1
+Cycle 10  |  PC:3 IR:62 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:2
+Cycle 11  |  PC:3 IR:62 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:3
+Cycle 12  |  PC:4 IR:f0 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:0
+Cycle 13  |  PC:4 IR:f0 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:1
+Cycle 14  |  PC:4 IR:f0 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:2
+Cycle 15  |  PC:4 IR:f0 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:3
+Cycle 16  |  PC:4 IR:f0 ACC:0 R0:0 R1:0 R2:0 R3:0 Z:1 C:0 State:4
+
+Program finished.
