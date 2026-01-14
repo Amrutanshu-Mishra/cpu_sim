@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
+/*
+     Structure of memory.h
+     Uint Addr , Instruction , Operand , opcode, data, valid
+     certain memory locations are reserved for instructions and hence addressing 
+     would start from 0X80 to 0xFF.
+*/
 struct memoryElement
 {
      unsigned int address; // Memory address
