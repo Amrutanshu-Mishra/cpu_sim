@@ -26,7 +26,7 @@ bool comp(bool input)
 
 vector<bool> full_sub(bool a, bool b, bool bi)
 {
-    bool diff = (a ^ b ^ ci);
+    bool diff = (a ^ b ^ bi);
 
     bool b_next = ((comp(a) & b) | (comp(a) & bi) | (b & bi));
     return {diff, b_next};
@@ -35,7 +35,8 @@ vector<bool> full_sub(bool a, bool b, bool bi)
 vector<bool> ADD(vector<bool> &ACC, vector<bool> OP)
 {
     int ec = 0; // ec ----> extra carry
-    vector<bool> res(4, 0) for (int i = 3; i >= 0; i--)
+    vector<bool> res(4, 0);
+    for (int i = 3; i >= 0; i--)
     {
         vector<bool> v1 = full_adder(ACC[i], OP[i], ec);
         res[i] = v1[0];
@@ -48,7 +49,8 @@ vector<bool> ADD(vector<bool> &ACC, vector<bool> OP)
 vector<bool> SUB(vector<bool> &ACC, vector<bool> OP)
 {
     int eb = 0; // eb ----> extra borrow
-    vector<bool> res(4, 0) for (int i = 3; i >= 0; i--)
+    vector<bool> res(4, 0);
+    for (int i = 3; i >= 0; i--)
     {
         vector<bool> v1 = full_sub(ACC[i], OP[i], eb);
         res[i] = v1[0];
