@@ -8,21 +8,6 @@ using namespace std;
      certain memory locations are reserved for instructions and hence addressing 
      would start from 0X80 to 0xFF.
 */
-struct memoryElement
-{
-     unsigned int address; // Memory address
-     string instruction;   // Instruction (opcode + operands)
-     bool operand[4];      // 4-bit operand
-     string mnemonic;      // Assembly mnemonic (ADD, SUB, MUL, etc.)
-     unsigned char opcode; // Opcode byte
-     string data;          // Data value
-     bool valid;           // Flag indicating if memory location is valid
-};
-
-// Main memory array - simulating 256 memory locations
-memoryElement main_memory[256];
-
-// Initialize memory with sample program and data
 void initialize_memory()
 {
      // Clear memory
@@ -38,33 +23,37 @@ void initialize_memory()
                main_memory[i].operand[j] = 0;
      }
 
-     // Program section (addresses 0x00 - 0x3F)
-     main_memory[0x00] = {0x00, "ADD R1, R2", {0, 0, 0, 1}, "ADD", 0x01, "0x00", true};
-     main_memory[0x01] = {0x01, "SUB R3, R4", {0, 0, 1, 0}, "SUB", 0x02, "0x00", true};
-     main_memory[0x02] = {0x02, "MUL R1, R3", {0, 0, 1, 1}, "MUL", 0x03, "0x00", true};
-     main_memory[0x03] = {0x03, "DIV R2, R4", {0, 1, 0, 0}, "DIV", 0x04, "0x00", true};
-     main_memory[0x04] = {0x04, "MOV R1, 0x05", {0, 1, 0, 1}, "MOV", 0x05, "0x05", true};
-     main_memory[0x05] = {0x05, "LOAD R2, 0x80", {0, 1, 1, 0}, "LOAD", 0x06, "0x80", true};
-     main_memory[0x06] = {0x06, "STORE R3, 0x81", {0, 1, 1, 1}, "STORE", 0x07, "0x81", true};
-     main_memory[0x07] = {0x07, "JMP 0x10", {1, 0, 0, 0}, "JMP", 0x08, "0x10", true};
+     /* 
+        TEST PROGRAM: Calculate (M[0x80] + M[0x81]) and store result in M[0x82]
+        Then jump to HLT.
+     */
 
-     // Additional program instructions
-     main_memory[0x08] = {0x08, "AND R1, R2", {1, 0, 0, 1}, "AND", 0x09, "0x00", true};
-     main_memory[0x09] = {0x09, "OR R3, R4", {1, 0, 1, 0}, "OR", 0x0A, "0x00", true};
-     main_memory[0x0A] = {0x0A, "XOR R1, R3", {1, 0, 1, 1}, "XOR", 0x0B, "0x00", true};
-     main_memory[0x0B] = {0x0B, "NOT R2", {1, 1, 0, 0}, "NOT", 0x0C, "0x00", true};
-     main_memory[0x0C] = {0x0C, "SHL R1, 2", {1, 1, 0, 1}, "SHL", 0x0D, "0x02", true};
-     main_memory[0x0D] = {0x0D, "SHR R3, 1", {1, 1, 1, 0}, "SHR", 0x0E, "0x01", true};
-     main_memory[0x0E] = {0x0E, "CMP R1, R2", {1, 1, 1, 1}, "CMP", 0x0F, "0x00", true};
-     main_memory[0x0F] = {0x0F, "HLT", {0, 0, 0, 0}, "HLT", 0x10, "0x00", true};
+     // 1. Initial Load of R2 from memory
+     main_memory[0x00] = {0x00, "LOAD R2, 0x81", {0, 0, 0, 0}, "LOAD",  0x06, "0x81", true};
 
-     // Data section (addresses 0x80 - 0xFF)
-     main_memory[0x80] = {0x80, "DATA: 0x42", {0, 1, 0, 0}, "DATA", 0x00, "0x42", true}; // 66 in decimal
-     main_memory[0x81] = {0x81, "DATA: 0x15", {0, 0, 0, 1}, "DATA", 0x00, "0x15", true}; // 21 in decimal
-     main_memory[0x82] = {0x82, "DATA: 0x78", {0, 1, 1, 1}, "DATA", 0x00, "0x78", true}; // 120 in decimal
-     main_memory[0x83] = {0x83, "DATA: 0x2A", {0, 0, 1, 0}, "DATA", 0x00, "0x2A", true}; // 42 in decimal
-     main_memory[0x84] = {0x84, "DATA: 0xFF", {1, 1, 1, 1}, "DATA", 0x00, "0xFF", true}; // 255 in decimal
-     main_memory[0x85] = {0x85, "DATA: 0x00", {0, 0, 0, 0}, "DATA", 0x00, "0x00", true}; // 0 in decimal
+     // 2. Load R1 from memory (Target for next ADD)
+     main_memory[0x01] = {0x01, "LOAD R1, 0x80", {0, 0, 0, 0}, "LOAD",  0x06, "0x80", true};
+
+     // 3. ADD instruction (Uses R1 and R2)
+     // This will trigger a STALL because R1 was just loaded in the previous instruction.
+     main_memory[0x02] = {0x02, "ADD R1, R2",   {0, 0, 0, 0}, "ADD",   0x01, "0x00", true};
+
+     // 4. STORE the result (ACC holds 5+3=8) back to memory at 0x82
+     main_memory[0x03] = {0x03, "STORE ACC, 0x82", {0, 0, 0, 0}, "STORE", 0x07, "0x82", true};
+
+     // 5. Jump to the finish
+     main_memory[0x04] = {0x04, "JMP 0x06",      {0, 0, 0, 0}, "JMP",   0x08, "0x06", true};
+
+     // 6. This instruction should be FLUSHED
+     main_memory[0x05] = {0x05, "SUB R3, R4",   {0, 0, 0, 0}, "SUB",   0x02, "0x00", true};
+
+     // 7. Finish
+     main_memory[0x06] = {0x06, "HLT",           {0, 0, 0, 0}, "HLT",   0x10, "0x00", true};
+
+     // --- Data Section ---
+     main_memory[0x80] = {0x80, "DATA: 0x05", {0, 0, 0, 0}, "DATA", 0x00, "0x05", true}; // Input A: 5
+     main_memory[0x81] = {0x81, "DATA: 0x03", {0, 0, 0, 0}, "DATA", 0x00, "0x03", true}; // Input B: 3
+     main_memory[0x82] = {0x82, "DATA: 0x00", {0, 0, 0, 0}, "DATA", 0x00, "0x00", true}; // Result placeholder
 }
 
 // Read memory at address

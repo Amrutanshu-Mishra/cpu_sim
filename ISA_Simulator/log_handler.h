@@ -165,4 +165,32 @@ inline void log_alu_operation(string operation_name, unsigned int address, strin
     logfile.close();
 }
 
+// Specialized Pipeline Log
+inline void log_pipeline(int cycle, string fetch_stage, string execute_stage, string status = "")
+{
+    ofstream logfile("pipeline.txt", ios::app);
+    if (!logfile.is_open()) return;
+
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    logfile << "[" << 1900 + ltm->tm_year << "-"
+            << setw(2) << setfill('0') << 1 + ltm->tm_mon << "-"
+            << setw(2) << setfill('0') << ltm->tm_mday << " "
+            << setw(2) << setfill('0') << ltm->tm_hour << ":"
+            << setw(2) << setfill('0') << ltm->tm_min << ":"
+            << setw(2) << setfill('0') << ltm->tm_sec << "] ";
+
+    logfile << "CYCLE: " << setw(3) << cycle << " | ";
+    logfile << "IF: " << setw(20) << left << fetch_stage << " | ";
+    logfile << "EX: " << setw(20) << left << execute_stage << " | ";
+    
+    if (!status.empty()) {
+        logfile << "STATUS: " << status;
+    }
+
+    logfile << endl;
+    logfile.close();
+}
+
 #endif // LOG_HANDLER_H
