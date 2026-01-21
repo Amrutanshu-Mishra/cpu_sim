@@ -164,3 +164,5 @@ inline void log_alu_operation(string operation_name, unsigned int address, strin
     logfile << endl;
     logfile.close();
 }
+
+#endif // LOG_HANDLER_H
