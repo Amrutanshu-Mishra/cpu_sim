@@ -38,25 +38,28 @@ void initialize_memory()
                main_memory[i].operand[j] = 0;
      }
 
+
      // Program section (addresses 0x00 - 0x3F)
-     main_memory[0x00] = {0x00, "ADD R1, R2", {0, 0, 0, 1}, "ADD", 0x01, "0x00", true};
-     main_memory[0x01] = {0x01, "SUB R3, R4", {0, 0, 1, 0}, "SUB", 0x02, "0x00", true};
-     main_memory[0x02] = {0x02, "MUL R1, R3", {0, 0, 1, 1}, "MUL", 0x03, "0x00", true};
-     main_memory[0x03] = {0x03, "DIV R2, R4", {0, 1, 0, 0}, "DIV", 0x04, "0x00", true};
-     main_memory[0x04] = {0x04, "MOV R1, 0x05", {0, 1, 0, 1}, "MOV", 0x05, "0x05", true};
-     main_memory[0x05] = {0x05, "LOAD R2, 0x80", {0, 1, 1, 0}, "LOAD", 0x06, "0x80", true};
-     main_memory[0x06] = {0x06, "STORE R3, 0x81", {0, 1, 1, 1}, "STORE", 0x07, "0x81", true};
-     main_memory[0x07] = {0x07, "JMP 0x10", {1, 0, 0, 0}, "JMP", 0x08, "0x10", true};
+     // Test Program 1: Load-Use Hazard Test
+     main_memory[0x00] = {0x00, "LD R1, 10", {0, 0, 0, 1}, "LD", 0x0D, "0x0A", true};      // Load from address 10
+     main_memory[0x01] = {0x01, "ADD R1", {0, 0, 0, 1}, "ADD", 0x01, "0x00", true};        // Uses R1 - HAZARD!
+     main_memory[0x02] = {0x02, "ST R2, 20", {0, 0, 1, 0}, "ST", 0x0E, "0x14", true};      // Store R2 to address 20
+     main_memory[0x03] = {0x03, "LD R3, 11", {0, 0, 1, 1}, "LD", 0x0D, "0x0B", true};      // Load from address 11
+     main_memory[0x04] = {0x04, "SUB R3", {0, 0, 1, 1}, "SUB", 0x02, "0x00", true};        // Uses R3 - HAZARD!
+     main_memory[0x05] = {0x05, "MUL R1", {0, 0, 0, 1}, "MUL", 0x03, "0x00", true};
+     main_memory[0x06] = {0x06, "ST R1, 21", {0, 0, 0, 1}, "ST", 0x0E, "0x15", true};      // Store R1 to address 21
+     main_memory[0x07] = {0x07, "HALT", {0, 0, 0, 0}, "HLT", 0x0F, "0x00", true};
 
      // Additional program instructions
-     main_memory[0x08] = {0x08, "AND R1, R2", {1, 0, 0, 1}, "AND", 0x09, "0x00", true};
-     main_memory[0x09] = {0x09, "OR R3, R4", {1, 0, 1, 0}, "OR", 0x0A, "0x00", true};
-     main_memory[0x0A] = {0x0A, "XOR R1, R3", {1, 0, 1, 1}, "XOR", 0x0B, "0x00", true};
-     main_memory[0x0B] = {0x0B, "NOT R2", {1, 1, 0, 0}, "NOT", 0x0C, "0x00", true};
-     main_memory[0x0C] = {0x0C, "SHL R1, 2", {1, 1, 0, 1}, "SHL", 0x0D, "0x02", true};
-     main_memory[0x0D] = {0x0D, "SHR R3, 1", {1, 1, 1, 0}, "SHR", 0x0E, "0x01", true};
-     main_memory[0x0E] = {0x0E, "CMP R1, R2", {1, 1, 1, 1}, "CMP", 0x0F, "0x00", true};
-     main_memory[0x0F] = {0x0F, "HLT", {0, 0, 0, 0}, "HLT", 0x10, "0x00", true};
+     main_memory[0x08] = {0x08, "ADD R1", {0, 0, 0, 1}, "ADD", 0x01, "0x00", true};
+     main_memory[0x09] = {0x09, "SUB R3", {0, 0, 1, 1}, "SUB", 0x02, "0x00", true};
+     main_memory[0x0A] = {0x0A, "MUL R1", {0, 0, 0, 1}, "MUL", 0x03, "0x00", true};
+     main_memory[0x0B] = {0x0B, "DIV R2", {0, 0, 1, 0}, "DIV", 0x04, "0x00", true};
+     main_memory[0x0C] = {0x0C, "LD R5, 12", {0, 1, 0, 1}, "LD", 0x0D, "0x0C", true};
+     main_memory[0x0D] = {0x0D, "ST R5, 22", {0, 1, 0, 1}, "ST", 0x0E, "0x16", true};
+     main_memory[0x0E] = {0x0E, "JMP 0x0F", {1, 1, 1, 1}, "JMP", 0x08, "0x0F", true};
+     main_memory[0x0F] = {0x0F, "HALT", {0, 0, 0, 0}, "HLT", 0x0F, "0x00", true};
+
 
      // Data section (addresses 0x80 - 0xFF)
      main_memory[0x80] = {0x80, "DATA: 0x42", {0, 1, 0, 0}, "DATA", 0x00, "0x42", true}; // 66 in decimal

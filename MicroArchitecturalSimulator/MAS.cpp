@@ -154,6 +154,20 @@ void load_program(const string &file)
           MEMORY[addr++] = x;
 }
 
+void log_control_signals(ofstream &log, ControlSignals &c)
+{
+     log << " | CTRL["
+         << "PCw=" << c.PC_write << " "
+         << "IRw=" << c.IR_write << " "
+         << "ACCw=" << c.ACC_write << " "
+         << "REGw=" << c.REG_write << " "
+         << "MEMr=" << c.MEM_read << " "
+         << "MEMw=" << c.MEM_write << " "
+         << "ALUop=" << c.ALU_op << " "
+         << "ALUsrc=" << c.ALU_src << " "
+         << "PCsrc=" << c.PC_src
+         << "]";
+}
 int main()
 {
      CPU cpu;
@@ -170,23 +184,24 @@ int main()
 
      while (running)
      {
-          log << "Cycle " << cycle++ << "  |  ";
-
           generate_control_signals(cpu, state, ctrl);
-          apply_control_signals(cpu, ctrl);
 
-          log << "PC:" << int(cpu.PC)
-              << " IR:" << hex << setw(2) << setfill('0') << int(cpu.IR)
-              << dec
-              << " ACC:" << int(cpu.ACC)
-              << " R0:" << int(cpu.R[0])
-              << " R1:" << int(cpu.R[1])
-              << " R2:" << int(cpu.R[2])
-              << " R3:" << int(cpu.R[3])
+          log << "Cycle " << setw(3) << cycle++
+              << " | State:" << state
+              << " | PC:" << int(cpu.PC)
+              << " IR:" << hex << setw(2) << setfill('0') << int(cpu.IR) << dec
+              << " ACC:" << setw(3) << int(cpu.ACC)
+              << " R0:" << setw(3) << int(cpu.R[0])
+              << " R1:" << setw(3) << int(cpu.R[1])
+              << " R2:" << setw(3) << int(cpu.R[2])
+              << " R3:" << setw(3) << int(cpu.R[3])
               << " Z:" << int(cpu.Z)
-              << " C:" << int(cpu.C)
-              << " State:" << state
-              << "\n";
+              << " C:" << int(cpu.C);
+
+          log_control_signals(log, ctrl);
+          log << "\n";
+
+          apply_control_signals(cpu, ctrl);
 
           switch (state)
           {
@@ -214,5 +229,5 @@ int main()
      log << "\nProgram finished.\n";
      log.close();
 
-     cout << "Execution complete. Log written to cpu_log.txt\n";
+     cout << "Execution complete. Full trace in cpu_log.txt\n";
 }
