@@ -39,8 +39,8 @@ void initialize_memory()
      }
 
 
-     // Program section (addresses 0x00 - 0x3F)
-     // Test Program 1: Load-Use Hazard Test
+     // Program section (addresses 0x00 - 0x0F)
+     // Test Program: Load-Use Hazard Test (for Assignment IV)
      main_memory[0x00] = {0x00, "LD R1, 10", {0, 0, 0, 1}, "LD", 0x0D, "0x0A", true};      // Load from address 10
      main_memory[0x01] = {0x01, "ADD R1", {0, 0, 0, 1}, "ADD", 0x01, "0x00", true};        // Uses R1 - HAZARD!
      main_memory[0x02] = {0x02, "ST R2, 20", {0, 0, 1, 0}, "ST", 0x0E, "0x14", true};      // Store R2 to address 20
@@ -60,14 +60,11 @@ void initialize_memory()
      main_memory[0x0E] = {0x0E, "JMP 0x0F", {1, 1, 1, 1}, "JMP", 0x08, "0x0F", true};
      main_memory[0x0F] = {0x0F, "HALT", {0, 0, 0, 0}, "HLT", 0x0F, "0x00", true};
 
-
-     // Data section (addresses 0x80 - 0xFF)
-     main_memory[0x80] = {0x80, "DATA: 0x42", {0, 1, 0, 0}, "DATA", 0x00, "0x42", true}; // 66 in decimal
-     main_memory[0x81] = {0x81, "DATA: 0x15", {0, 0, 0, 1}, "DATA", 0x00, "0x15", true}; // 21 in decimal
-     main_memory[0x82] = {0x82, "DATA: 0x78", {0, 1, 1, 1}, "DATA", 0x00, "0x78", true}; // 120 in decimal
-     main_memory[0x83] = {0x83, "DATA: 0x2A", {0, 0, 1, 0}, "DATA", 0x00, "0x2A", true}; // 42 in decimal
-     main_memory[0x84] = {0x84, "DATA: 0xFF", {1, 1, 1, 1}, "DATA", 0x00, "0xFF", true}; // 255 in decimal
-     main_memory[0x85] = {0x85, "DATA: 0x00", {0, 0, 0, 0}, "DATA", 0x00, "0x00", true}; // 0 in decimal
+     // Data section (addresses 0x0A - 0x15 for data values)
+     // These are the values that will be loaded by LD instructions
+     main_memory[0x0A] = {0x0A, "DATA: 0x42", {0, 1, 0, 0}, "DATA", 0x00, "0x42", true}; // 66 in decimal (address 10)
+     main_memory[0x0B] = {0x0B, "DATA: 0x15", {0, 0, 0, 1}, "DATA", 0x00, "0x15", true}; // 21 in decimal (address 11)
+     main_memory[0x0C] = {0x0C, "DATA: 0x78", {0, 1, 1, 1}, "DATA", 0x00, "0x78", true}; // 120 in decimal (address 12)
 }
 
 // Read memory at address
@@ -82,7 +79,7 @@ memoryElement read_memory(unsigned int address)
      }
 }
 
-// Write memory at address
+// Write to memory
 void write_memory(unsigned int address, memoryElement element)
 {
      if (address < 256)
@@ -92,36 +89,37 @@ void write_memory(unsigned int address, memoryElement element)
 }
 
 // Display memory contents
-void display_memory(unsigned int start_address = 0, unsigned int end_address = 255)
+void display_memory(unsigned int start, unsigned int end)
 {
      cout << "\n=== CPU Memory Contents ===" << endl;
      cout << "Address | Instruction         | Mnemonic | Opcode | Data   | Valid" << endl;
-     cout << "--------|----------------------|----------|--------|--------|-------" << endl;
+     cout << "--------|---------------------|----------|--------|--------|-------" << endl;
 
-     for (unsigned int i = start_address; i <= end_address && i < 256; i++)
+     for (unsigned int i = start; i <= end && i < 256; i++)
      {
           if (main_memory[i].valid)
           {
-               cout << "0x" << hex << setw(2) << setfill('0') << i << "     | "
-                    << setfill(' ') << setw(20) << left << main_memory[i].instruction << "| "
-                    << setw(8) << left << main_memory[i].mnemonic << "| "
-                    << "0x" << hex << setw(2) << setfill('0') << (int)main_memory[i].opcode << "   | "
-                    << main_memory[i].data << "    | "
-                    << (main_memory[i].valid ? "YES" : "NO") << endl;
+               cout << "0x" << hex << setw(2) << setfill('0') << i << setfill(' ')
+                    << "     | " << left << setw(19) << main_memory[i].instruction << right
+                    << " | " << setw(8) << main_memory[i].mnemonic
+                    << " | 0x" << hex << setw(2) << setfill('0') << (int)main_memory[i].opcode << setfill(' ')
+                    << "   | " << setw(6) << main_memory[i].data
+                    << " | YES" << dec << endl;
           }
      }
-     cout << dec << endl;
+     cout << "\n";
 }
 
-// Display memory segment (program or data)
+// Display program section (addresses 0x00 - 0x0F)
 void display_program_section()
 {
      cout << "\n=== PROGRAM SECTION (0x00 - 0x0F) ===" << endl;
      display_memory(0x00, 0x0F);
 }
 
+// Display data section
 void display_data_section()
 {
-     cout << "\n=== DATA SECTION (0x80 - 0x8F) ===" << endl;
-     display_memory(0x80, 0x8F);
+     cout << "\n=== DATA SECTION (0x0A - 0x0F) ===" << endl;
+     display_memory(0x0A, 0x0F);
 }

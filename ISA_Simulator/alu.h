@@ -8,21 +8,6 @@ using namespace std;
 extern bool zero_flag;
 extern bool carry_flag;
 
-// ci is initial carry
-vector<bool> full_adder(bool a, bool b, bool ci);
-
-bool comp(bool input);
-
-vector<bool> full_sub(bool a, bool b, bool bi);
-
-vector<bool> ADD(vector<bool> &ACC, vector<bool> OP);
-
-vector<bool> SUB(vector<bool> &ACC, vector<bool> OP);
-
-vector<bool> MUL(vector<bool> &ACC, vector<bool> OP);
-
-pair<vector<bool>, vector<bool>> DIV(vector<bool> dividend, vector<bool> divisor);
-
 // Implementation (inline functions for header file)
 
 inline vector<bool> full_adder(bool a, bool b, bool ci)
@@ -51,7 +36,7 @@ inline vector<bool> full_sub(bool a, bool b, bool bi)
     return {diff, b_next};
 }
 
-inline vector<bool> ADD(vector<bool> &ACC, vector<bool> OP)
+inline vector<bool> ADD(vector<bool> ACC, vector<bool> OP)
 {
     int ec = 0; // ec ----> extra carry
     vector<bool> res(4, 0);
@@ -65,7 +50,7 @@ inline vector<bool> ADD(vector<bool> &ACC, vector<bool> OP)
     return res;
 }
 
-inline vector<bool> SUB(vector<bool> &ACC, vector<bool> OP)
+inline vector<bool> SUB(vector<bool> ACC, vector<bool> OP)
 {
     int eb = 0; // eb ----> extra borrow
     vector<bool> res(4, 0);
@@ -78,7 +63,7 @@ inline vector<bool> SUB(vector<bool> &ACC, vector<bool> OP)
     return res;
 }
 
-inline vector<bool> MUL(vector<bool> &ACC, vector<bool> OP)
+inline vector<bool> MUL(vector<bool> ACC, vector<bool> OP)
 {
     vector<bool> M = ACC; // Multiplicand
     vector<bool> Q = OP;  // Multiplier

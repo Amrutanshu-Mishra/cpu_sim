@@ -1,19 +1,3 @@
-[2026-01-28 10:11:19] CACHE MISS: address=0x10 index=2 tag=1 fetched data=0x66 stall_cycles=4
-[2026-01-28 10:11:19] CACHE HIT: address=0x10 index=2 tag=1 data=0x66
-[2026-01-28 10:11:19] CACHE WRITE MISS: address=0x20 data=0x3 (write-allocate)
-[2026-01-28 10:11:19] CACHE WRITE HIT: address=0x20 data=0x3
-[2026-01-28 10:11:19] CACHE MISS: address=0x11 index=3 tag=1 fetched data=0x21 stall_cycles=4
-[2026-01-28 10:11:19] CACHE HIT: address=0x11 index=3 tag=1 data=0x21
-[2026-01-28 10:11:19] CACHE WRITE MISS: address=0x21 data=0x207 (write-allocate)
-[2026-01-28 10:11:19] CACHE WRITE HIT: address=0x21 data=0x207
-[2026-01-28 10:12:39] CACHE MISS: address=0x10 index=2 tag=1 fetched data=0x66 stall_cycles=4
-[2026-01-28 10:12:39] CACHE HIT: address=0x10 index=2 tag=1 data=0x66
-[2026-01-28 10:12:39] CACHE WRITE MISS: address=0x20 data=0x3 (write-allocate)
-[2026-01-28 10:12:39] CACHE WRITE HIT: address=0x20 data=0x3
-[2026-01-28 10:12:39] CACHE MISS: address=0x11 index=3 tag=1 fetched data=0x21 stall_cycles=4
-[2026-01-28 10:12:39] CACHE HIT: address=0x11 index=3 tag=1 data=0x21
-[2026-01-28 10:12:39] CACHE WRITE MISS: address=0x21 data=0x207 (write-allocate)
-[2026-01-28 10:12:39] CACHE WRITE HIT: address=0x21 data=0x207
 [2026-01-28 10:12:39] === COMPARISON RUN (Assignment IV) ===
 [2026-01-28 10:12:39] Configuration: No optimization
 [2026-01-28 10:12:39]   Cycles: 11
@@ -34,3 +18,87 @@
 [2026-01-28 10:12:39]   Stalls: 16
 [2026-01-28 10:12:39]   Forwardings: 2
 [2026-01-28 10:12:39] === END COMPARISON ===
+[2026-01-28 10:18:24] CACHE MISS: address=0x10 index=2 tag=1 fetched data=0x66 stall_cycles=4
+[2026-01-28 10:18:24] CACHE HIT: address=0x10 index=2 tag=1 data=0x66
+[2026-01-28 10:18:24] CACHE WRITE MISS: address=0x20 data=0x3 (write-allocate)
+[2026-01-28 10:18:24] CACHE WRITE HIT: address=0x20 data=0x3
+[2026-01-28 10:18:24] CACHE MISS: address=0x11 index=3 tag=1 fetched data=0x21 stall_cycles=4
+[2026-01-28 10:18:24] CACHE HIT: address=0x11 index=3 tag=1 data=0x21
+[2026-01-28 10:18:24] CACHE WRITE MISS: address=0x21 data=0x207 (write-allocate)
+[2026-01-28 10:18:24] CACHE WRITE HIT: address=0x21 data=0x207
+[2026-01-28 10:18:24] === COMPARISON RUN (Assignment IV) ===
+[2026-01-28 10:18:24] Configuration: No optimization
+[2026-01-28 10:18:24]   Cycles: 11
+[2026-01-28 10:18:24]   Instructions: 8
+[2026-01-28 10:18:24]   CPI: 1.375000
+[2026-01-28 10:18:24]   Stalls: 2
+[2026-01-28 10:18:24]   Forwardings: 0
+[2026-01-28 10:18:24] Configuration: With Forwarding only
+[2026-01-28 10:18:24]   Cycles: 9
+[2026-01-28 10:18:24]   Instructions: 8
+[2026-01-28 10:18:24]   CPI: 1.125000
+[2026-01-28 10:18:24]   Stalls: 0
+[2026-01-28 10:18:24]   Forwardings: 2
+[2026-01-28 10:18:24] Configuration: With Fwd + Cache
+[2026-01-28 10:18:24]   Cycles: 29
+[2026-01-28 10:18:24]   Instructions: 12
+[2026-01-28 10:18:24]   CPI: 2.416667
+[2026-01-28 10:18:24]   Stalls: 16
+[2026-01-28 10:18:24]   Forwardings: 2
+[2026-01-28 10:18:24] === END COMPARISON ===
+[2026-01-28 10:24:05] CACHE MISS: address=0x10 index=2 tag=1 fetched data=0x66 stall_cycles=4
+[2026-01-28 10:24:05] CACHE HIT: address=0x10 index=2 tag=1 data=0x66
+[2026-01-28 10:24:05] CACHE WRITE MISS: address=0x20 data=0x3 (write-allocate)
+[2026-01-28 10:24:05] CACHE WRITE HIT: address=0x20 data=0x3
+[2026-01-28 10:24:05] CACHE MISS: address=0x11 index=3 tag=1 fetched data=0x21 stall_cycles=4
+[2026-01-28 10:24:05] CACHE HIT: address=0x11 index=3 tag=1 data=0x21
+[2026-01-28 10:24:05] CACHE WRITE MISS: address=0x21 data=0x207 (write-allocate)
+[2026-01-28 10:24:05] CACHE WRITE HIT: address=0x21 data=0x207
+[2026-01-28 10:24:05] === COMPARISON RUN (Assignment IV) ===
+[2026-01-28 10:24:05] Configuration: No optimization
+[2026-01-28 10:24:05]   Cycles: 11
+[2026-01-28 10:24:05]   Instructions: 8
+[2026-01-28 10:24:05]   CPI: 1.375000
+[2026-01-28 10:24:05]   Stalls: 2
+[2026-01-28 10:24:05]   Forwardings: 0
+[2026-01-28 10:24:05] Configuration: With Forwarding only
+[2026-01-28 10:24:05]   Cycles: 9
+[2026-01-28 10:24:05]   Instructions: 8
+[2026-01-28 10:24:05]   CPI: 1.125000
+[2026-01-28 10:24:05]   Stalls: 0
+[2026-01-28 10:24:05]   Forwardings: 2
+[2026-01-28 10:24:05] Configuration: With Fwd + Cache
+[2026-01-28 10:24:05]   Cycles: 29
+[2026-01-28 10:24:05]   Instructions: 12
+[2026-01-28 10:24:05]   CPI: 2.416667
+[2026-01-28 10:24:05]   Stalls: 16
+[2026-01-28 10:24:05]   Forwardings: 2
+[2026-01-28 10:24:05] === END COMPARISON ===
+[2026-01-28 10:27:29] CACHE MISS: address=0x10 index=2 tag=1 fetched data=0x66 stall_cycles=4
+[2026-01-28 10:27:29] CACHE HIT: address=0x10 index=2 tag=1 data=0x66
+[2026-01-28 10:27:29] CACHE WRITE MISS: address=0x20 data=0x3 (write-allocate)
+[2026-01-28 10:27:29] CACHE WRITE HIT: address=0x20 data=0x3
+[2026-01-28 10:27:29] CACHE MISS: address=0x11 index=3 tag=1 fetched data=0x21 stall_cycles=4
+[2026-01-28 10:27:29] CACHE HIT: address=0x11 index=3 tag=1 data=0x21
+[2026-01-28 10:27:29] CACHE WRITE MISS: address=0x21 data=0x207 (write-allocate)
+[2026-01-28 10:27:29] CACHE WRITE HIT: address=0x21 data=0x207
+[2026-01-28 10:27:29] === COMPARISON RUN (Assignment IV) ===
+[2026-01-28 10:27:29] Configuration: No optimization
+[2026-01-28 10:27:29]   Cycles: 11
+[2026-01-28 10:27:29]   Instructions: 8
+[2026-01-28 10:27:29]   CPI: 1.375000
+[2026-01-28 10:27:29]   Stalls: 2
+[2026-01-28 10:27:29]   Forwardings: 0
+[2026-01-28 10:27:29] Configuration: With Forwarding only
+[2026-01-28 10:27:29]   Cycles: 9
+[2026-01-28 10:27:29]   Instructions: 8
+[2026-01-28 10:27:29]   CPI: 1.125000
+[2026-01-28 10:27:29]   Stalls: 0
+[2026-01-28 10:27:29]   Forwardings: 2
+[2026-01-28 10:27:29] Configuration: With Fwd + Cache
+[2026-01-28 10:27:29]   Cycles: 29
+[2026-01-28 10:27:29]   Instructions: 12
+[2026-01-28 10:27:29]   CPI: 2.416667
+[2026-01-28 10:27:29]   Stalls: 16
+[2026-01-28 10:27:29]   Forwardings: 2
+[2026-01-28 10:27:29] === END COMPARISON ===
